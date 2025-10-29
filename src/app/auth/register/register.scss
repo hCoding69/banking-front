@@ -1,0 +1,53 @@
+$primary-color: #004475;
+
+.imagecontainer img {
+  width: 60px;
+}
+.logotext {
+  font-size: 22px;
+  font-weight: bold;
+  color: $primary-color;
+  letter-spacing: 0.7px;
+}
+.header {
+  padding: 28px 00px;
+  background-color: white;
+}
+.body-page {
+      min-height: 100vh;
+
+}
+.indices {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 100%;
+    color: $primary-color;
+}
+.example-stepper {
+  background: white !important;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  
+}
+/* Cache les numéros du stepper */
+:host ::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
+  display: none;
+}
+
+
+/* Affiche seulement les icônes dans matStepLabel */
+:host ::ng-deep .mat-step-header .mat-step-label mat-icon {
+  font-size: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+  color: $primary-color;
+  background-color: #E4ECF4;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+

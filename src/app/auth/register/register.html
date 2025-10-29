@@ -1,1 +1,87 @@
-<p>register works!</p>
+<div class="contentpage ">
+  <div class="header container-fluid d-flex align-items-center justify-content-between">
+    <div class="logocontainer d-flex gap-3 align-items-center">
+      <div class="imagecontainer d-flex align-items-center">
+        <img src="/assets/logo.png" alt="Bankinglogo">
+      </div>
+      <p class="logotext">Banking</p>
+
+    </div>
+    <div class="">
+
+      <p class="indices">Request to open an account</p>
+
+    </div>
+  </div>
+  <div class="body-page">
+<mat-horizontal-stepper [linear]="true" #stepper class="example-stepper container-fluid mt-5">
+>
+
+  <!-- Étape 1 -->
+  <mat-step [stepControl]="firstFormGroup">
+    <ng-template matStepLabel class="d-flex align-items-center">
+
+      <mat-icon>person</mat-icon>
+      <span>Create your account</span>
+    </ng-template>
+    <form [formGroup]="firstFormGroup">
+      <mat-form-field class="field-text w-100 mt-3" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="email" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Étape 2 -->
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>
+      <mat-icon color="primary">badge</mat-icon> Personal Info
+    </ng-template>
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="birthDate" placeholder="Ex. 1 Main St, New York, NY" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Étape 3 -->
+  <mat-step [stepControl]="thirdFormGroup">
+    <ng-template matStepLabel>
+      <mat-icon color="primary">shopping_cart</mat-icon> Choose your Offer
+    </ng-template>
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="packId" placeholder="Ex. 12345678" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Étape finale -->
+  <mat-step>
+    <ng-template matStepLabel>
+      <mat-icon color="primary">check_circle</mat-icon> Done
+    </ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>
+
+  </div>
+</div>
+
