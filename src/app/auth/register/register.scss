@@ -10,11 +10,13 @@ $primary-color: #004475;
   letter-spacing: 0.7px;
 }
 .header {
-  padding: 28px 00px;
-  background-color: white;
+  padding: 22px 00px;
+  background-color: white !important;
 }
 .body-page {
       min-height: 100vh;
+        background-color: #F1F5F9 !important;
+
 
 }
 .indices {
@@ -34,7 +36,9 @@ $primary-color: #004475;
 :host ::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
   display: none;
 }
-
+.field-text {
+  width: 50%;
+}
 
 /* Affiche seulement les icônes dans matStepLabel */
 :host ::ng-deep .mat-step-header .mat-step-label mat-icon {
@@ -51,3 +55,19 @@ $primary-color: #004475;
   align-items: center;
 }
 
+.rrr {
+    background-color: $primary-color;
+    color: white !important;
+    border-radius: 6px;
+    padding: 8px 10px;
+    
+}
+.secondaryButton {
+    background-color: white !important;
+    color: $primary-color !important;
+    border: 1px solid $primary-color !important;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-right: 12px;
+    
+}
