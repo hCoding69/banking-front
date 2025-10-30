@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
 import {MatError, MatInputModule} from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { Pack, PackService } from '../../services/pack-service';
 
 
 
@@ -27,7 +29,8 @@ import { MatNativeDateModule } from '@angular/material/core';
             MatInputModule,
             MatIconModule,
             MatDatepickerModule,
-                MatNativeDateModule
+            MatNativeDateModule,
+            MatRadioModule,
 
           ],
   templateUrl: './register.html',
@@ -41,15 +44,9 @@ export class Register {
   thirdFormGroup: FormGroup;
   message: string = '';
   qrCodeUrl: string = '';
+  packs: Pack[] = [];
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
-    // this.registerForm = this.formBuilder.group({
-    //   firstName: ['', Validators.required],
-    //   lastName: ['', Validators.required],
-    //   confirmPassword: ['', Validators.required],
-    //   birthDate: ['', Validators.required],
-    //   roleIds: [[], Validators.required]
-    // });
+  constructor(private authService: AuthService, private packService: PackService , private formBuilder: FormBuilder) {
     this.firstFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -67,8 +64,20 @@ export class Register {
     this.thirdFormGroup = this.formBuilder.group({
       packId: ['', Validators.required],
     });
-
   }
+
+ngOnInit() {
+  this.packService.loadPacks().subscribe({
+    next: (packs) =>{
+      console.log('Packs loaded:', packs);
+      this.packs = packs;
+    },
+
+    error: (error) => {
+      console.error('Failed to load packs:', error);
+    }
+  })
+}
 
 passwordMatchValidator(group: FormGroup) {
   const password = group.get('password')?.value;
