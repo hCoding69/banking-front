@@ -12,6 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Pack, PackService } from '../../services/pack-service';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -45,6 +46,8 @@ export class Register {
   message: string = '';
   qrCodeUrl: string = '';
   packs: Pack[] = [];
+  loadingPacks: boolean = true;
+  loading: boolean = false;
 
   constructor(private authService: AuthService, private packService: PackService , private formBuilder: FormBuilder) {
     this.firstFormGroup = this.formBuilder.group({
@@ -75,10 +78,12 @@ ngOnInit() {
 
     error: (error) => {
       console.error('Failed to load packs:', error);
-    }
+    },
   })
 }
-
+selectPack(packId: number) {
+  this.thirdFormGroup.get('packId')?.setValue(packId);
+}
 passwordMatchValidator(group: FormGroup) {
   const password = group.get('password')?.value;
   const confirm = group.get('confirmPassword')?.value;
@@ -120,6 +125,7 @@ adultValidator(group: FormGroup) {
 
 onSubmit() {
   if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
+    this.loading = true
     const request = {
       ...this.firstFormGroup.value,
       ...this.secondFormGroup.value,
@@ -132,10 +138,12 @@ onSubmit() {
         console.log('Registration successful:', response);
         this.message = response.message;
         this.qrCodeUrl = response.qrCodeUrl;
+        this.loading = false;
       },
       error: (error) => {
         console.error('Registration failed:', error);
         this.message = error.error.message || 'Registration failed. Please try again.';
+        this.loading = false;
       }
     });
   }

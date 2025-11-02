@@ -9,8 +9,8 @@ export interface Pack {
   description: string;
   monthlyFee: number;
   supportLevel: string;
-  maxTransactionsPerMonth: number;
-  inassurance: boolean;
+  maxTransactionsPerDay: number;
+  insurance: boolean;
 }
 
 @Injectable({
