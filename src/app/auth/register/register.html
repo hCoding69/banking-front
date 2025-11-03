@@ -178,9 +178,22 @@
     <ng-template matStepLabel>
       <mat-icon color="primary">check_circle</mat-icon> Done
     </ng-template>
-    <p>You are now done.</p>
+    <div class="alert alert-success" *ngIf="successMessage" role="alert">
+      {{ successMessage }}
+    </div>
+<div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+      {{ errorMessage }}
+</div>
+ <div *ngIf="qrCodeUrl" class="text-center mt-3">
+  <p>Scan this QR code with <b>Google Authenticator</b>:</p>
+  <qrcode [qrdata]="qrCodeUrl" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
+  <p class="mt-2"><strong>Secret:</strong> {{ qrCodeUrl.split('secret=')[1].split('&')[0] }}</p>
+</div>
+
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext class="rrr" (click)="onSubmit()" >Alredy Scanned? Login Now</button>
+
+      <button class="secondaryButton" mat-button matStepperPrevious>Back</button>
     </div>
   </mat-step>
 

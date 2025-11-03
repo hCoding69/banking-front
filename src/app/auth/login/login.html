@@ -1,5 +1,67 @@
-<p>login works!</p>
-<div class="text-center mt-5">
-  <h1 class="text-primary">Bootstrap est bien installé 🎉</h1>
-  <button class="btn btn-danger">Bouton rouge</button>
+<div class="contentpage ">
+  <div class="header container-fluid d-flex align-items-center justify-content-between">
+    <div class="logocontainer d-flex gap-3 align-items-center">
+      <div class="imagecontainer d-flex align-items-center">
+        <img src="/assets/logo.png" alt="Bankinglogo">
+      </div>
+      <p class="logotext">Banking</p>
+
+    </div>
+    <div class="">
+      <p class="indices">login to your account</p>
+    </div>
+  </div>
+  <div class="body-page pt-5">
+ <mat-horizontal-stepper [linear]="true" #stepper class="example-stepper container-fluid ">
+>
+
+  <!-- Étape 1 -->
+  <mat-step [stepControl]="firstFormGroup">
+    <ng-template matStepLabel class="d-flex align-items-center">
+
+      <mat-icon>person</mat-icon>
+      <span>Create your account</span>
+    </ng-template>
+    <form [formGroup]="firstFormGroup" class="d-flex flex-column align-items-center justify-content-center ">
+      <mat-form-field class="field-text mt-3" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" required>
+        <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">Email required</mat-error>
+        <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">This email is not valid</mat-error>
+      </mat-form-field>
+        <mat-form-field class="field-text mt-3" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" type="password" formControlName="password" required>
+        <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">Password required</mat-error>
+      </mat-form-field>
+      <div class="mt-3">
+        <button mat-button matStepperNext class="rrr">Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Étape 2 -->
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>
+      <mat-icon color="primary">badge</mat-icon> Personal Info
+    </ng-template>
+    <form [formGroup]="secondFormGroup" class="d-flex flex-column align-items-center justify-content-center ">
+     <mat-form-field class="field-text mt-3" appearance="outline">
+        <mat-label>Mfa code</mat-label>
+        <input matInput placeholder="Code de Google authentificator" formControlName="otp" required>
+        <mat-error *ngIf="secondFormGroup.get('otp')?.hasError('required')">First name required</mat-error>
+      </mat-form-field>
+
+
+<div class="mt-3">
+      <button mat-button matStepperPrevious class="secondaryButton">Back</button>
+        <button mat-button matStepperNext class="rrr" (click)="onSubmit()">Next</button>
+      </div>
+
+    </form>
+  </mat-step>
+
+
+</mat-horizontal-stepper>
+  </div>
 </div>

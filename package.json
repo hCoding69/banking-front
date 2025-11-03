@@ -36,6 +36,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.4",
     "@popperjs/core": "^2.11.8",
+    "angularx-qrcode": "^20.0.0",
     "bootstrap": "^5.3.8",
     "ngx-toastr": "^19.1.0",
     "rxjs": "~7.8.0",

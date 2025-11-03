@@ -21,7 +21,7 @@ export interface RegisterResponse {
 export interface AuthRequest {
   email: string;
   password: string;
-  mfaCode?: string;
+  otp?: number;
 }
 
 export interface AuthResponse {

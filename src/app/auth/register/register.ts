@@ -11,9 +11,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Pack, PackService } from '../../services/pack-service';
+import { Router } from '@angular/router';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+import { QRCodeComponent } from 'angularx-qrcode';
 
 
 
@@ -32,6 +34,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
             MatDatepickerModule,
             MatNativeDateModule,
             MatRadioModule,
+                QRCodeComponent // <- attention ici, on importe le composant autonome dans le module
+
 
           ],
   templateUrl: './register.html',
@@ -43,13 +47,14 @@ export class Register {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  message: string = '';
+  errorMessage: string = '';
+  successMessage: string = '';
   qrCodeUrl: string = '';
   packs: Pack[] = [];
   loadingPacks: boolean = true;
   loading: boolean = false;
 
-  constructor(private authService: AuthService, private packService: PackService , private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private packService: PackService , private formBuilder: FormBuilder, private router: Router) {
     this.firstFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -80,6 +85,9 @@ ngOnInit() {
       console.error('Failed to load packs:', error);
     },
   })
+}
+goToLogin() {
+  this.router.navigate(['/auth/login']);
 }
 selectPack(packId: number) {
   this.thirdFormGroup.get('packId')?.setValue(packId);
@@ -136,13 +144,13 @@ onSubmit() {
     this.authService.register(request).subscribe({
       next: (response) => {
         console.log('Registration successful:', response);
-        this.message = response.message;
+        this.successMessage = response.message;
         this.qrCodeUrl = response.qrCodeUrl;
         this.loading = false;
       },
       error: (error) => {
         console.error('Registration failed:', error);
-        this.message = error.error.message || 'Registration failed. Please try again.';
+        this.errorMessage = error.error.error + " Please try again." || 'Registration failed. Please try again.';
         this.loading = false;
       }
     });
