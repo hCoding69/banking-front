@@ -9,7 +9,18 @@ export interface RegisterRequest {
   password: string;
   confirmPassword: string;
   birthDate: Date;
+  packId: number;
   roleIds: number[];
+}
+
+
+
+export interface UserResponse {
+    id : number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    userStatus: string;
 }
 
 export interface RegisterResponse {
@@ -59,4 +70,11 @@ export class AuthService {
   public logout():Observable<void> {
     return this.http.post<void>(`${this.API_URL}/logout`, {}, { withCredentials: true });
   }
+
+  getCurrentUser():Observable<UserResponse> {
+    return this.http.get<UserResponse>('http://localhost:8082/api/users/me', { withCredentials: true })
+  }
+
+
+
 }

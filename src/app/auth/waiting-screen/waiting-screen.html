@@ -1,0 +1,31 @@
+<div class="contentpage ">
+  <div class="header container-fluid d-flex align-items-center justify-content-between">
+    <div class="logocontainer d-flex gap-3 align-items-center">
+      <div class="imagecontainer d-flex align-items-center">
+        <img src="/assets/logo.png" alt="Bankinglogo">
+      </div>
+      <p class="logotext">Banking</p>
+
+    </div>
+    <div class="">
+      <p class="indices">Your Requeust is being processed</p>
+    </div>
+  </div>
+  <div class="body-page pt-5">
+  <div class="container-fluid">
+    <div class="waitingdiv d-flex flex-column justify-content-center align-items-center gap-4">
+      <div class="alert alert-danger" *ngIf = "message" role="alert">
+      {{ message }}
+</div>
+      <div class="waitingimage bg-white">
+        <img  src="/assets/waiting.webp" alt="">
+      </div>
+      <div class="waitingtext">
+        <p class="big">Your Requeust is being processed</p>
+        <p>We will notify you via email once your account has been approved.</p>
+      </div>
+      <div class="buttons">
+        <button mat-button matStepperPrevious (click) = "logout()" class="secondaryButton w-100">Logout</button>
+      </div>
+    </div>
+  </div>

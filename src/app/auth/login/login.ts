@@ -14,6 +14,7 @@ import { Pack, PackService } from '../../services/pack-service';
 import { Router } from '@angular/router';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -46,6 +47,8 @@ export class Login {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private router: Router,
+    private http: HttpClient
   ) {
     this.firstFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -66,6 +69,7 @@ export class Login {
           next: (response) => {
             console.log('Login successful:', response);
             this.successMessage = response.message;
+            this.router.navigate(['/auth/waiting-screen']);
           },
           error: (error) => {
             console.error('Login failed:', error);
@@ -74,6 +78,28 @@ export class Login {
         });
       }
     }
+
+     assignRole() {
+
+
+    this.authService.getCurrentUser().subscribe({
+      next: (res) => console.log('Succès:', res),
+      error: (err) => console.error('Erreur:', err)
+    });
+  }
+
+  createRole() {
+    const body = {
+      name: 'ROLE_TEST'
+    };
+
+    this.http.post('http://localhost:8082/api/users/roles/create', body, {
+      withCredentials: true // ✅ important pour envoyer les cookies
+    }).subscribe({
+      next: (res) => console.log('Succès:', res),
+      error: (err) => console.error('Erreur:', err)
+    });
+  }
 
 
 
