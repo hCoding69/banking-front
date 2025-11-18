@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,9 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('banking-front');
-    constructor(private router: Router) {}
+    constructor(private authService: AuthService) {}
 
-  goToRegister() {
-    this.router.navigate(['/auth/register']);
+  ngOnInit() {
+    this.authService.loadCurrentUser().subscribe();
   }
 }

@@ -18,12 +18,32 @@
       {{ message }}
 </div>
       <div class="waitingimage bg-white">
-        <img  src="/assets/waiting.webp" alt="">
+        <img *ngIf="isUserInactive()" src="/assets/waiting.webp" alt="">
+        <img *ngIf="isUserSuspended()" src="/assets/suspended.jpg" alt="">
+        <img *ngIf="isUserBlocked()" src="/assets/blocked.png" alt="">
+
+
       </div>
-      <div class="waitingtext">
+      <div class="waitingtext" *ngIf="isUserInactive()">
         <p class="big">Your Requeust is being processed</p>
         <p>We will notify you via email once your account has been approved.</p>
       </div>
+      <div class="waitingtext" *ngIf="isUserSuspended()">
+        <p class="big">Your account has been temporarily suspended</p>
+        <p>Your account has been suspended . You will be notified by email once it is reinstated.</p>
+      </div>
+      <div class="waitingtext" *ngIf="isUserBlocked()">
+        <p class="big">Your account has been blocked</p>
+        <p>Please visit your email for more details.</p>
+      </div>
+      <!-- <div class="buttons">
+        <button mat-button matStepperPrevious (click) = "testClientService()" class="secondaryButton w-100">Test</button>
+      </div> -->
+      <!-- <button (click)="assignRole()">Attribuer le rôle</button> -->
+             <button (click)="createClient()">Create Client</button>
+
+
+
       <div class="buttons">
         <button mat-button matStepperPrevious (click) = "logout()" class="secondaryButton w-100">Logout</button>
       </div>

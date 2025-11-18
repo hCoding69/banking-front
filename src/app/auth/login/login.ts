@@ -69,20 +69,22 @@ export class Login {
           next: (response) => {
             console.log('Login successful:', response);
             this.successMessage = response.message;
-            this.router.navigate(['/auth/waiting-screen']);
+            this.router.navigate(['/auth/redirect']);
           },
           error: (error) => {
             console.error('Login failed:', error);
-            this.errorMessage = error.error.error || 'Login failed. Please try again.';
+            this.errorMessage = error.error.otp || 'Login failed. Please try again.';
           }
         });
       }
     }
 
-     assignRole() {
-
-
-    this.authService.getCurrentUser().subscribe({
+    assignRole() {
+    const body = {
+      roleId: 1, // ID du rôle à attribuer
+      userId: 4  // ID de l'utilisateur
+    };
+    this.http.post<any>('http://localhost:8082/api/users/roles/assign-role', body, {withCredentials: true} ).subscribe({
       next: (res) => console.log('Succès:', res),
       error: (err) => console.error('Erreur:', err)
     });

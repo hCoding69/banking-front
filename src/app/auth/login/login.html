@@ -20,7 +20,7 @@
     <ng-template matStepLabel class="d-flex align-items-center">
 
       <mat-icon>person</mat-icon>
-      <span>Create your account</span>
+      <span>Email and Password</span>
     </ng-template>
     <form [formGroup]="firstFormGroup" class="d-flex flex-column align-items-center justify-content-center ">
       <mat-form-field class="field-text mt-3" appearance="outline">
@@ -43,21 +43,23 @@
   <!-- Étape 2 -->
   <mat-step [stepControl]="secondFormGroup">
     <ng-template matStepLabel>
-      <mat-icon color="primary">badge</mat-icon> Personal Info
+      <mat-icon color="primary">badge</mat-icon> MFA Code
     </ng-template>
     <form [formGroup]="secondFormGroup" class="d-flex flex-column align-items-center justify-content-center ">
+      <div class="alert mt-3 alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
      <mat-form-field class="field-text mt-3" appearance="outline">
         <mat-label>Mfa code</mat-label>
-        <input matInput placeholder="Code de Google authentificator" formControlName="otp" required>
-        <mat-error *ngIf="secondFormGroup.get('otp')?.hasError('required')">First name required</mat-error>
+        <input matInput placeholder="Google authentificator code" formControlName="otp" required>
+        <mat-error *ngIf="secondFormGroup.get('otp')?.hasError('required')">Otp is required</mat-error>
       </mat-form-field>
 
-
-<div class="mt-3">
+    <div class="mt-3">
       <button mat-button matStepperPrevious class="secondaryButton">Back</button>
-        <button mat-button matStepperNext class="rrr" (click)="onSubmit()">Next</button>
-      </div>
-          <button (click)="assignRole()">Attribuer le rôle</button>
+      <button mat-button matStepperNext class="rrr" (click)="onSubmit()">Next</button>
+    </div>
+          <!-- <button (click)="assignRole()">Attribuer le rôle</button> -->
 
 
     </form>

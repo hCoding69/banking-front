@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 export interface RegisterRequest {
   firstName: string;
@@ -50,6 +50,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   private readonly API_URL = 'http://localhost:8082/api/auth';
+  private currentUserSubject = new BehaviorSubject<UserResponse | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   public register(request: RegisterRequest): Observable<RegisterResponse>  {
     return this.http.post<RegisterResponse>(`${this.API_URL}/register`, request, { withCredentials: true });
@@ -67,13 +69,35 @@ export class AuthService {
     );
   }
 
-  public logout():Observable<void> {
+  isAuthenticated() {
+    return this.refreshToken().pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
+  }
+
+  logout():Observable<void> {
     return this.http.post<void>(`${this.API_URL}/logout`, {}, { withCredentials: true });
   }
 
   getCurrentUser():Observable<UserResponse> {
     return this.http.get<UserResponse>('http://localhost:8082/api/users/me', { withCredentials: true })
   }
+
+  loadCurrentUser(): Observable<UserResponse | null> {
+    return this.getCurrentUser().pipe(
+      map(user => {
+        this.currentUserSubject.next(user);
+        return user;
+      }),
+      catchError(() => {
+        this.currentUserSubject.next(null);
+        return of(null);
+      })
+    );
+  }
+
+
 
 
 
