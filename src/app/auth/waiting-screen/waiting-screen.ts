@@ -64,7 +64,7 @@ export class WaitingScreen {
 
   assignRole() {
     const body = {
-      roleId: 1, // ID du rôle à attribuer
+      roleId: 5, // ID du rôle à attribuer
       userId: 4  // ID de l'utilisateur
     };
     this.http.post<any>('http://localhost:8082/api/users/roles/assign-role', body, {withCredentials: true} ).subscribe({
@@ -87,16 +87,16 @@ export class WaitingScreen {
       birthDate: "2003-05-10", // format ISO string
       phone: "+212600000000",
       addressRequest: ar,
-      userId: this.userId
+      userId: 1
     };
 
-  this.clientService.createClient(cr).subscribe({
-    next : (response) =>{
-      console.log(response)
-    },
-    error : (error) => {
-      console.log(error)
+    this.clientService.createClient(cr).subscribe({
+      next : (response) =>{
+        console.log(response)
+      },
+      error : (error) => {
+        console.log(error)
+      }
+      })
     }
-    })
   }
-}
